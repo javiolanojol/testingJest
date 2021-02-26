@@ -4,7 +4,7 @@ const userData = { name: 'TekLoon', gender: 'Male', dob: new Date(), loginUsing:
 
 describe('User Model Test', () => {
 
-    // It's just so easy to connect to the MongoDB Memory Server 
+    // It's just so easy to connect to the MongoDB Memory Server
     // By using mongoose.connect
     beforeAll(async () => {
         await mongoose.connect(global.__MONGO_URI__, { useNewUrlParser: true, useCreateIndex: true }, (err) => {
@@ -50,5 +50,10 @@ describe('User Model Test', () => {
         expect(err.errors.gender).toBeDefined();
     });
 
-    
+    afterAll(done => {
+        // Closing the DB connection allows Jest to exit successfully.
+        mongoose.connection.close()
+        done();
+    })
+
 })
